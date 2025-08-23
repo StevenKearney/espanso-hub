@@ -40,3 +40,6 @@ Zabbix omnia scrutatur; alert fatigue disciplina mitigat.
 This project is intended for educational and demonstration use only.
 It produces filler text, not functional commands or configurations.
 It should never be used as real configuration for live systems.
+
+## More information
+https://blog.lipsumhub.com/lorem-ipsum-generator-for-cybersecurity-firms
