@@ -215,12 +215,14 @@ anchors: &NS_SENTENCES
   # Bufferbloat is a diseased swelling, producing lateness.
 
 global_vars:
+  # -------- Sentences --------
   - {name: ns1, type: random, params: {choices: *NS_SENTENCES}}
   - {name: ns2, type: random, params: {choices: *NS_SENTENCES}}
   - {name: ns3, type: random, params: {choices: *NS_SENTENCES}}  
   - {name: ns4, type: random, params: {choices: *NS_SENTENCES}}
   - {name: ns5, type: random, params: {choices: *NS_SENTENCES}}
 
+  # -------- Paragraphs --------
   - {name: np1, type: match, params: {trigger: ":pnsipsum"}}
   - {name: np2, type: match, params: {trigger: ":pnsipsum"}}
   - {name: np3, type: match, params: {trigger: ":pnsipsum"}}
