@@ -6,7 +6,7 @@
 # Global sentence pool (YAML anchor; Espanso ignores unknown top-level keys)
 # Latin to English translations are provided as comments for clarity.
 # Note: The sentences are intentionally whimsical and not meant to be grammatically correct.
-ns_pool: &NS_SENTENCES
+anchors: &NS_SENTENCES
 - "Lorem routerum sub netstat magna; packeti per VLAN et OSPF fluunt."
   # The router speaks loudly under netstat; packets flow through VLANs and OSPF.
 - "EIGRP canes metricos mordent, dum DUAL algorithm pacem quaerit."
@@ -214,314 +214,68 @@ ns_pool: &NS_SENTENCES
 - "Bufferbloat morbosus inflatus est, lateness gignens."
   # Bufferbloat is a diseased swelling, producing lateness.
 
+global_vars:
+  # -------- Sentences --------
+  - {name: ns1, type: random, params: {choices: *NS_SENTENCES}}
+  - {name: ns2, type: random, params: {choices: *NS_SENTENCES}}
+  - {name: ns3, type: random, params: {choices: *NS_SENTENCES}}  
+  - {name: ns4, type: random, params: {choices: *NS_SENTENCES}}
+  - {name: ns5, type: random, params: {choices: *NS_SENTENCES}}
+
+  # -------- Paragraphs --------
+  - {name: np1, type: match, params: {trigger: ":pnsipsum"}}
+  - {name: np2, type: match, params: {trigger: ":pnsipsum"}}
+  - {name: np3, type: match, params: {trigger: ":pnsipsum"}}
+  - {name: np4, type: match, params: {trigger: ":pnsipsum"}}
+
 matches:
   # -------- Sentences --------
   - trigger: ":nsipsum"
-    replace: "{{s}}"
-    vars:
-      - name: s
-        type: random
-        params: { choices: *NS_SENTENCES }
+    replace: "{{ns1}}"
 
   - trigger: ":2nsipsum"
-    replace: "{{s1}} {{s2}}"
-    vars:
-      - name: s1
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: s2
-        type: random
-        params: { choices: *NS_SENTENCES }
+    replace: "{{ns1}} {{ns2}}"
 
   - trigger: ":3nsipsum"
-    replace: "{{s1}} {{s2}} {{s3}}"
-    vars:
-      - name: s1
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: s2
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: s3
-        type: random
-        params: { choices: *NS_SENTENCES }
+    replace: "{{ns1}} {{ns2}} {{ns3}}"
 
   - trigger: ":4nsipsum"
-    replace: "{{s1}} {{s2}} {{s3}} {{s4}}"
-    vars:
-      - name: s1
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: s2
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: s3
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: s4
-        type: random
-        params: { choices: *NS_SENTENCES }
+    replace: "{{ns1}} {{ns2}} {{ns3}} {{ns4}}"
 
   # -------- Paragraphs (≥5 sentences) --------
-  - trigger: ":pnsipsum"
-    replace: "{{a1}} {{a2}} {{a3}} {{a4}} {{a5}}"
-    vars:
-      - name: a1
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: a2
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: a3
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: a4
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: a5
-        type: random
-        params: { choices: *NS_SENTENCES }
+  - triggers: [":pnsipsum", ":5nsipsum"]
+    replace: "{{ns1}} {{ns2}} {{ns3}} {{ns4}} {{ns5}}"
 
   - trigger: ":2pnsipsum"
-    replace: "{{p1a}} {{p1b}} {{p1c}} {{p1d}} {{p1e}}\n\n{{p2a}} {{p2b}} {{p2c}} {{p2d}} {{p2e}}"
-    vars:
-      - name: p1a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1e
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2e
-        type: random
-        params: { choices: *NS_SENTENCES }
+    replace: "{{np1}}\n\n{{np2}}"
 
   - trigger: ":3pnsipsum"
-    replace: "{{p1a}} {{p1b}} {{p1c}} {{p1d}} {{p1e}}\n\n{{p2a}} {{p2b}} {{p2c}} {{p2d}} {{p2e}}\n\n{{p3a}} {{p3b}} {{p3c}} {{p3d}} {{p3e}}"
-    vars:
-      - name: p1a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1e
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2e
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p3a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p3b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p3c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p3d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p3e
-        type: random
-        params: { choices: *NS_SENTENCES }
+    replace: "{{np1}}\n\n{{np2}}\n\n{{np3}}"
 
   - trigger: ":4pnsipsum"
-    replace: "{{p1a}} {{p1b}} {{p1c}} {{p1d}} {{p1e}}\n\n{{p2a}} {{p2b}} {{p2c}} {{p2d}} {{p2e}}\n\n{{p3a}} {{p3b}} {{p3c}} {{p3d}} {{p3e}}\n\n{{p4a}} {{p4b}} {{p4c}} {{p4d}} {{p4e}}"
-    vars:
-      - name: p1a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p1e
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p2e
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p3a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p3b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p3c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p3d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p3e
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p4a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p4b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p4c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p4d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: p4e
-        type: random
-        params: { choices: *NS_SENTENCES }
+    replace: "{{np1}}\n\n{{np2}}\n\n{{np3}}\n\n{{np4}}"
 
   # -------- Chaos modes --------
   - trigger: ":rnsipsum"
     replace: "{{pick}}"
     vars:
-      - name: s1
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: s2
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: s3
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: s4
-        type: random
-        params: { choices: *NS_SENTENCES }
       - name: pick
         type: random
         params:
           choices:
-            - "{{s1}}"
-            - "{{s1}} {{s2}}"
-            - "{{s1}} {{s2}} {{s3}}"
-            - "{{s1}} {{s2}} {{s3}} {{s4}}"
+            - "{{ns1}}"
+            - "{{ns1}} {{ns2}}"
+            - "{{ns1}} {{ns2}} {{ns3}}"
+            - "{{ns1}} {{ns2}} {{ns3}} {{ns4}}"
 
   - trigger: ":rpnsipsum"
     replace: "{{ppick}}"
     vars:
-      - name: q1a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q1b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q1c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q1d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q1e
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q2a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q2b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q2c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q2d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q2e
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q3a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q3b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q3c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q3d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q3e
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q4a
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q4b
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q4c
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q4d
-        type: random
-        params: { choices: *NS_SENTENCES }
-      - name: q4e
-        type: random
-        params: { choices: *NS_SENTENCES }
       - name: ppick
         type: random
         params:
           choices:
-            - "{{q1a}} {{q1b}} {{q1c}} {{q1d}} {{q1e}}"
-            - "{{q1a}} {{q1b}} {{q1c}} {{q1d}} {{q1e}}\n\n{{q2a}} {{q2b}} {{q2c}} {{q2d}} {{q2e}}"
-            - "{{q1a}} {{q1b}} {{q1c}} {{q1d}} {{q1e}}\n\n{{q2a}} {{q2b}} {{q2c}} {{q2d}} {{q2e}}\n\n{{q3a}} {{q3b}} {{q3c}} {{q3d}} {{q3e}}"
-            - "{{q1a}} {{q1b}} {{q1c}} {{q1d}} {{q1e}}\n\n{{q2a}} {{q2b}} {{q2c}} {{q2d}} {{q2e}}\n\n{{q3a}} {{q3b}} {{q3c}} {{q3d}} {{q3e}}\n\n{{q4a}} {{q4b}} {{q4c}} {{q4d}} {{q4e}}"
+            - "{{np1}}"
+            - "{{np1}}\n\n{{np2}}"
+            - "{{np1}}\n\n{{np2}}\n\n{{np3}}"
+            - "{{np1}}\n\n{{np2}}\n\n{{np3}}\n\n{{np4}}"
